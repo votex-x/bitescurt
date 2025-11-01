@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Estatísticas - SakiURL</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center; }
+        .stat-number { font-size: 2em; font-weight: bold; color: #4CAF50; }
+        .chart { background: white; padding: 20px; border-radius: 10px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>📊 Estatísticas do Link</h1>
+    <p><strong>URL:</strong> {{ url.original_url }}</p>
+    <p><strong>Encurtado:</strong> web.sakibites.space/{{ url.short_code }}</p>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">{{ basic_stats.total_clicks or 0 }}</div>
+            <div>Total de Cliques</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ basic_stats.unique_visitors or 0 }}</div>
+            <div>Visitantes Únicos</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ basic_stats.countries or 0 }}</div>
+            <div>Países</div>
+        </div>
+    </div>
+    
+    {% if daily_clicks %}
+    <div class="chart">
+        <h3>📈 Cliques nos Últimos 30 Dias</h3>
+        {% for day in daily_clicks %}
+        <div style="margin: 5px 0;">
+            <strong>{{ day.date }}:</strong> {{ day.clicks }} cliques
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div style="margin-top: 30px; padding: 20px; background: #e7f3ff; border-radius: 10px;">
+        <h3>🔑 Código de Acesso</h3>
+        <p><strong>{{ url.access_code }}</strong></p>
+        <p>Guarde este código para acessar as estatísticas novamente</p>
+    </div>
+</body>
+</html>

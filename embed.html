@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ url.title }}</title>
+    <meta name="description" content="{{ url.description }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ url.title }}">
+    <meta property="og:description" content="{{ url.description }}">
+    <meta property="og:url" content="https://web.sakibites.space/{{ url.short_code }}">
+    
+    {% if url.image_url %}
+    <meta property="og:image" content="{{ url.image_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    {% else %}
+    <meta property="og:image" content="https://web.sakibites.space/static/logo.png">
+    <meta name="twitter:card" content="summary">
+    {% endif %}
+    
+    <meta property="og:site_name" content="SakiURL">
+    
+    <!-- Twitter -->
+    <meta name="twitter:title" content="{{ url.title }}">
+    <meta name="twitter:description" content="{{ url.description }}">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .embed-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .embed-image {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .embed-url {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .embed-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .embed-description {
+            color: #666;
+            line-height: 1.4;
+        }
+        .saki-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="embed-card">
+        {% if url.image_url %}
+        <img src="{{ url.image_url }}" alt="{{ url.title }}" class="embed-image">
+        {% endif %}
+        
+        <div class="embed-url">web.sakibites.space</div>
+        <div class="embed-title">{{ url.title }}</div>
+        <div class="embed-description">{{ url.description }}</div>
+        
+        <div class="saki-badge">🔗 Encurtado com SakiURL</div>
+    </div>
+    
+    <script>
+        // Redireciona após 1 segundo se não for bot
+        setTimeout(() => {
+            window.location.href = "{{ url.original_url }}";
+        }, 1000);
+    </script>
+</body>
+</html>
